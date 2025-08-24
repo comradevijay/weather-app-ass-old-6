@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <header>
+          <h2>
+            <i class="fa fa-map-marker"></i>
+            <span id="location">Loading...</span>
+          </h2>
+          <h6 id="weather"></h6>
+        </header>
+
+        <div class="weather-info">
+          <img src="" alt="Weather Icon" id="icon" />
+          <h4 class="temp"><span id="temp">--</span>&deg;C</h4>
+        </div>
+
+        <div class="details">
+          <div class="detail-item">
+            <i class="fa fa-tint"></i>
+            <p class="label">Humidity</p>
+            <p class="value"><span id="humidity">--</span>%</p>
+          </div>
+          <div class="detail-item">
+            <i class="fa fa-wind"></i>
+            <p class="label">Wind Speed</p>
+            <p class="value"><span id="wind">--</span> km/h</p>
+          </div>
+        </div>
+
+        <footer>
+          <button class="refresh" id="refresh-btn">
+            <i class="fa fa-rotate-right"></i>
+          </button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
