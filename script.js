@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // API Key and URL
-  const apiKey = 'd742f0a972e84e4e8c97aa9d51d4901f'; // Your OpenWeatherMap API key
-  const city = 'bengaluru';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
+  // API Key
+  // !! Remember to replace this with your own API key from OpenWeatherMap
+  const apiKey = 'd742f0a972e84e4e8c97aa9d51d4901f'; 
+  
   // DOM Elements
   const locationEl = document.getElementById('location');
   const weatherEl = document.getElementById('weather');
@@ -12,15 +11,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const humidityEl = document.getElementById('humidity');
   const windEl = document.getElementById('wind');
   const refreshBtn = document.getElementById('refresh-btn');
+  
+  // Get the new input element
+  const cityInputEl = document.getElementById('city-input');
 
   function fetchWeather() {
+    // Get the city from the input field
+    const city = cityInputEl.value.trim();
+
+    // Check if the input is empty
+    if (city === '') {
+      locationEl.textContent = 'Please enter a city';
+      weatherEl.textContent = '';
+      tempEl.textContent = '--';
+      humidityEl.textContent = '--';
+      windEl.textContent = '--';
+      iconEl.src = '';
+      return; // Stop the function if no city is entered
+    }
+
+    // Build the API URL dynamically
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
     // Show loading state while fetching
     locationEl.textContent = 'Loading...';
+    weatherEl.textContent = '';
 
     fetch(apiUrl)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('City not found');
         }
         return response.json();
       })
@@ -40,10 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
         tempEl.textContent = '--';
         humidityEl.textContent = '--';
         windEl.textContent = '--';
+        iconEl.src = '';
       });
   }
 
+  // Event listener for the button (now acts as search)
   refreshBtn.addEventListener('click', fetchWeather);
 
+  // Event listener for pressing "Enter" in the input field
+  cityInputEl.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents form submission, if any
+      fetchWeather();
+    }
+  });
+
+  // Set a default city and fetch weather on page load
+  cityInputEl.value = 'bengaluru';
   fetchWeather();
 });
